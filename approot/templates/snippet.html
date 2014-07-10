@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Code Snippets{% endblock %}
+
+{% block content %}
+<div class="bodybox">
+<h3>OpenCV</h3>
+<pre>
+# Common Functions
+cv2.waitKey(0)
+
+cv2.imread(img_path, cv2.IMREAD_COLOR|cv2.IMREAD_GRAYSCALE)
+cv2.imwrite(img_path, img_obj)      # default format is PNG
+cv2.imshow(window_name, img_obj)
+
+cv2.line, cv2.circle, cv2.rectangle, cv2.polylines, cv2.putText
+
+img.shape -> (number of rows, number of columns, number of channels)
+img.size -> total number of pixels
+img.dtype -> uint8|...
+cv2.split, cv2.merge
+</pre>
+
+<table class="table table-bordered">
+<tr>
+  <th>Output</th>
+  <th>Code</th>
+  <th>Console</th>
+</tr>
+
+<tr>
+  <td><img src="{{ url_for('static', filename='img/imshow.png') }}"/></td>
+  <td class="code-snippet">
+# Read and show an image
+import cv2
+
+IMG1_PATH = 'desk1.png'
+
+img1 = cv2.imread(IMG1_PATH)
+cv2.imshow('things on a desk', img1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+  </td>
+  <td></td>
+</tr>
+
+<tr>
+  <td><img src="{{ url_for('static', filename='img/drawonimg.png') }}"/></td>
+  <td class="code-snippet">
+# Draw on image
+img = np.zeros((256,256,3), np.uint8) # create a black img
+
+cv2.line(img, (0,0), (511,511), (255,0,0), 5)
+
+points = np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)
+cv2.polylines(img, [points], True, (0,255,255))
+
+cv2.putText(img, 'cool', (10,200), cv2.FONT_HERSHEY_SIMPLEX, 4, (255,255,255), 2)
+  </td>
+  <td></td>
+</tr>
+
+<tr>
+  <td><img src="{{ url_for('static', filename='img/thresholds.png') }}"/></td>
+  <td class="code-snippet">
+# Thresholds
+img1 = cv2.imread(IMG1_PATH, 0)
+img1 = cv2.medianBlur(img1, 5)
+
+ret, th1 = cv2.threshold(img1, 127, 255, cv2.THRESH_BINARY)
+th2 = cv2.adaptiveThreshold(img1, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+th3 = cv2.adaptiveThreshold(img1, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+
+titles = ['Source Image - blurred', 'Global Thresholding (v = 127)',
+            'Adaptive Mean Thresholding', 'Adaptive Gaussian Thresholding']
+images = [img1, th1, th2, th3]
+  </td>
+  <td></td>
+</tr>
+
+<tr>
+  <td><img src="{{ url_for('static', filename='img/canny.png') }}"/></td>
+  <td class="code-snippet">
+# Canny edge detection
+img1 = cv2.imread(IMG1_PATH, 0)
+edges = cv2.Canny(img1, 100, 200)
+show(edges, 'Canny Edge Detection')
+  </td>
+  <td></td>
+</tr>
+</table>
+</div>
+{% endblock %}
+

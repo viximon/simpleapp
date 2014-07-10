@@ -1,0 +1,16 @@
+.bodybox {
+    margin-top: 70px;
+}
+pre {
+    padding-left: 20px;
+}
+td.code-snippet {
+    white-space: pre;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    font-size: 13px;
+    background-color: #f5f5f5;
+}
+.custom-container {
+    margin-right: 70px;
+    margin-left: 70px;
+}
