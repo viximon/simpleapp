@@ -15,6 +15,13 @@ class Snippet(FlaskView):
     def index(self):
         return render_template('snippet.html')
 
+
+class Foo(FlaskView):
+    def blahblah(self):
+        a = 1 + 2
+        b = 3 + 4
+        return c
+
 # URL rules
 Root.register(app)
 Snippet.register(app)
